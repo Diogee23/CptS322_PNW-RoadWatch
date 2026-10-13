@@ -1,0 +1,62 @@
+http://wsdot.wa.gov/Traffic/api/WeatherInformation/WeatherInformationREST.svc/GetCurrentWeatherInformationAsJson?
+// Returns all weather stations in WA
+[
+    {
+        "BarometricPressure": 959.70,
+        "Latitude": 47.474800000000,
+        "Longitude": -122.270400000000,
+        "PrecipitationInInches": null,
+        "ReadingTime": "/Date(1791863040000-0700)/",
+        "RelativeHumidity": 72,
+        "SkyCoverage": "N/A",
+        "StationID": 1909,
+        "StationName": "S 144th St on SB I-5 at mp 155.32",
+        "TemperatureInFahrenheit": 50.72,
+        "Visibility": 1,
+        "WindDirection": 145,
+        "WindDirectionCardinal": "SE",
+        "WindGustSpeedInMPH": 0,
+        "WindSpeedInMPH": 0
+    }
+]
+
+https://511.idaho.gov/api/v3/get/winterroads?
+// returns winter road reports for idaho
+
+[
+    {
+        "Id": 694,
+        "LocationDescription": "Banks/Alder Creek Rd. from MP 0 to MP 12",
+        "Overall Status": "No Report",
+        "Weather Conditions": null,
+        "Special Conditions": null,
+        "AreaName": "Local",
+        "RoadwayName": "CO-17",
+        "EncodedPolyline": [ "string removed for space "          ],
+        "LastUpdated": 1766182373
+    },
+    {
+        "Id": 695,
+        "LocationDescription": "Alder Creek Rd/Lowman from MP 12 to MP 34",
+        "Overall Status": "No Report",
+        "Weather Conditions": null,
+        "Special Conditions": null,
+        "AreaName": "Local",
+        "RoadwayName": "CO-17",
+        "EncodedPolyline": [ "string removed for space "   ],
+        "LastUpdated": 1766182373
+    },
+    {
+        "Id": 428,
+        "LocationDescription": "Nezperce/Kamiah from MP 0 to MP 31",
+        "Overall Status": "Wet",
+        "Weather Conditions": [
+            "Cloudy"
+        ],
+        "Special Conditions": [],
+        "AreaName": "District 2 Foreman 250",
+        "RoadwayName": "SH-162",
+        "EncodedPolyline": ["string removed for space " ],
+        "LastUpdated": 1791813923
+    },
+]
