@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON, Polygon, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapView.css";
@@ -7,6 +7,7 @@ import { Alert } from "./models";
 import { AlertDatabase } from "./AlertDatabase";
 import { mockAlerts } from "./mockAlerts";
 import usStates from "./us-states.json";
+import union from "@turf/union";
 
 // Keep only the three states we cover (WA, OR, ID) for the map
 const PNW_STATES = {
@@ -15,6 +16,20 @@ const PNW_STATES = {
     ["Washington", "Oregon", "Idaho"].includes(f.properties.name)
   ),
 };
+
+// Merge the three states into one shape so we can outline the whole region
+const PNW_OUTLINE = union({
+  type: "FeatureCollection",
+  features: PNW_STATES.features,
+});
+
+// Dim everything outside the three states: a huge rectangle with the region cut out
+const WORLD_RING = [[-85, -180], [-85, 180], [85, 180], [85, -180]];
+const outlineGeometry = PNW_OUTLINE.geometry;
+const outlinePolygons = outlineGeometry.type === "Polygon" ? [outlineGeometry.coordinates] : outlineGeometry.coordinates;
+
+const REGION_HOLES = outlinePolygons.map((p) => p[0].map(([lng, lat]) => [lat, lng]));
+const DIM_MASK = [WORLD_RING, ...REGION_HOLES];
 
 const REFRESH_MS = 60_000;
 const PNW_CENTER = [45.5, -118.0];  // WA / OR / ID
@@ -109,10 +124,20 @@ const MapView = forwardRef(function MapView(
         bounds={PNW_BOUNDS}
         noWrap
       />
+      <Polygon
+       positions={DIM_MASK}
+       interactive={false}
+       pathOptions={{ stroke: false, fillColor: "#5f5f5f", fillOpacity: 0.35 }}
+      />
       <GeoJSON
        data={PNW_STATES}
        interactive={false}
-       style={{ color: "#1b5e4b", weight: 3, fill: false }}
+       style={{ color: "#a6a6a6", weight: 3, fill: false }}
+      />
+      <GeoJSON
+       data={PNW_OUTLINE}
+       interactive={false}
+       style={{ color: "#2b2b2b", weight: 4, fill: false }}
       />
         {alerts.map((a) => (
           <Marker key={a.alertID} position={[a.location.latitude, a.location.longitude]}
