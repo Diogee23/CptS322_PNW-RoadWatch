@@ -1,0 +1,22 @@
+/* Styles for the PNW RoadWatch map (code/map/roadwatch-map.js) */
+#mapViewContainer { min-height: 500px; }
+
+.alert-pin { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px;
+  border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+.alert-pin span { transform: rotate(45deg); font-size: 14px; line-height: 1; }
+.sev-low { background: #2e7d32; color: #fff; }
+.sev-moderate { background: #f9a825; color: #222; }
+.sev-high { background: #ef6c00; color: #fff; }
+.sev-critical { background: #c62828; color: #fff; }
+
+.map-banner { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000;
+  padding: 8px 14px; border-radius: 6px; font: 14px system-ui, sans-serif;
+  background: #fff3cd; color: #5c4400; border: 1px solid #e0c36a; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.map-banner[hidden] { display: none; }
+.map-banner.offline { background: #fde2e2; color: #6b1010; border-color: #d98a8a; }
+
+.alert-popup h3 { margin: 0 0 4px; font: 600 15px system-ui, sans-serif; }
+.alert-popup p { margin: 0 0 6px; font: 13px system-ui, sans-serif; }
+.alert-popup dl { margin: 0; font: 12px system-ui, sans-serif; display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; }
+.alert-popup dt { font-weight: 600; }
+.alert-popup dd { margin: 0; }
