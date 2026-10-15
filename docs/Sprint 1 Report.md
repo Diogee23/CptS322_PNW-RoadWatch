@@ -7,9 +7,6 @@ Video Link:
  * Added initial setup for directions feature 
 
 ## Work Summary (Developer Facing)
-Provide a one paragraph synposis of what your team accomplished this sprint. Don't repeat the "What's New" list of features. Instead, help the instructor understand how you went about the work described there, any barriers you overcame, and any significant learnings for your team.
-
-## Work Summary (Developer Facing)
 This sprint we had one person build the front-end website, one build the interactive map, another begin the backend, and our last team member begin the process of getting access to the Washington, Oregon, and Idaho DOT data feeds. We based the map's data model on our class diagram and developed it against sample alerts, so it can switch to the real API in the next sprint. We used GitHub issues, feature branches, and pull requests so that each part was reviewed before it was merged into main. Our biggest technical barrier was a mismatch between our planned tools and our hosting: we originally planned to build the map in React, but GitHub Pages can only serve static files, so we rewrote the map in plain JavaScript that loads Leaflet from a CDN. As a result, the published site currently shows sample alerts only, until the backend is hosted somewhere else. We also learned to be careful with credentials: a key committed to a public repository is visible to everyone, so we are restricting our site's API key and will keep the DOT API keys private. Obtaining DOT API access was also challenging because Oregon's documentation was poorly written and did not explain how to retrieve the API key. Finally, agreeing early on the alert data format and on where files live in the repository saved integration time, and we found that setting up shared tools like Node and Git takes longer than expected, so we plan for it earlier next sprint.
 
 ## Unfinished Work
