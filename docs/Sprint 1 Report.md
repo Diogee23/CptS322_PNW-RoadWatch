@@ -18,6 +18,9 @@ This sprint we had one person build the front-end website, one build the interac
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
  * [URL of issue 1](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/15)
+ * [URL of issue 2](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/7)
+ * [URL of issue 3](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/8)
+ * [URL of issue 4](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/9)
  
  ## Incomplete Issues/User Stories
  Here are links to issues we worked on but did not complete in this sprint:
