@@ -21,6 +21,7 @@ Here are links to the issues that we completed in this sprint:
  * [URL of issue 2](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/7)
  * [URL of issue 3](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/8)
  * [URL of issue 4](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/9)
+ * [URL of issue 5](https://github.com/Diogee23/CptS322_PNW-RoadWatch/issues/10)
  
  ## Incomplete Issues/User Stories
  Here are links to issues we worked on but did not complete in this sprint:
