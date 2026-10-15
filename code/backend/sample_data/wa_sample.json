@@ -1,0 +1,38 @@
+[
+  {
+    "StationID": 1913,
+    "StationName": "Snoqualmie Pass",
+    "Latitude": 47.4245,
+    "Longitude": -121.4137,
+    "ReadingTime": "/Date(1792080000000-0700)/",
+    "TemperatureInFahrenheit": 29.5,
+    "PrecipitationInInches": 0.12,
+    "SkyCoverage": "Snow",
+    "WindSpeedInMPH": 14,
+    "Visibility": 2
+  },
+  {
+    "StationID": 2041,
+    "StationName": "Stevens Pass",
+    "Latitude": 47.7462,
+    "Longitude": -121.0886,
+    "ReadingTime": "/Date(1792080300000-0700)/",
+    "TemperatureInFahrenheit": 34.1,
+    "PrecipitationInInches": 0.0,
+    "SkyCoverage": "Overcast",
+    "WindSpeedInMPH": 8,
+    "Visibility": 10
+  },
+  {
+    "StationID": 2210,
+    "StationName": "Pullman - SR 270",
+    "Latitude": 46.7298,
+    "Longitude": -117.1817,
+    "ReadingTime": "/Date(1792080600000-0700)/",
+    "TemperatureInFahrenheit": 41.0,
+    "PrecipitationInInches": 0.0,
+    "SkyCoverage": "Clear",
+    "WindSpeedInMPH": 5,
+    "Visibility": 10
+  }
+]

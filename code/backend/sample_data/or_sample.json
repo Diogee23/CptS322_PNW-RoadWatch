@@ -1,0 +1,24 @@
+{
+  "road-weather-reports": [
+    {
+      "report-id": "RW-501",
+      "location-name": "Santiam Pass - US 20",
+      "latitude": 44.4237,
+      "longitude": -121.8578,
+      "road-condition": "Carry chains or traction tires",
+      "weather-condition": "Snowing",
+      "temperature": 30,
+      "entry-time": "2026-10-15T16:10:00Z"
+    },
+    {
+      "report-id": "RW-517",
+      "location-name": "Government Camp - US 26",
+      "latitude": 45.3018,
+      "longitude": -121.7543,
+      "road-condition": "Bare pavement",
+      "weather-condition": "Cloudy",
+      "temperature": 38,
+      "entry-time": "2026-10-15T16:20:00Z"
+    }
+  ]
+}

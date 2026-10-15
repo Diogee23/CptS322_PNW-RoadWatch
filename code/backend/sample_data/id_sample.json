@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 88012,
+    "RoadwayName": "I-90 Fourth of July Pass",
+    "AreaName": "North Idaho",
+    "Weather Conditions": "Heavy snow",
+    "Primary Condition": "Snow and ice covered",
+    "LastUpdated": 1792082000,
+    "EncodedPolyline": "sxsaHzbafUs]k~H"
+  },
+  {
+    "Id": 88047,
+    "RoadwayName": "US-95 Lewiston Grade",
+    "AreaName": "North Central",
+    "Weather Conditions": "Fog",
+    "Primary Condition": "Wet",
+    "LastUpdated": 1792082600,
+    "EncodedPolyline": "gomzGfv{hUwuBw|A"
+  },
+  {
+    "Id": 88090,
+    "RoadwayName": "ID-21 Banner Summit",
+    "AreaName": "Southwest",
+    "Weather Conditions": "Blowing snow",
+    "Primary Condition": "Road closed",
+    "LastUpdated": 1792083000,
+    "EncodedPolyline": "guumGnve~Twj@ovA"
+  },
+  {
+    "Id": 88111,
+    "RoadwayName": "I-84 Boise",
+    "AreaName": "Southwest",
+    "Weather Conditions": null,
+    "Primary Condition": "Dry",
+    "LastUpdated": 1792083100,
+    "EncodedPolyline": "_sbiG~hfdU"
+  }
+]
