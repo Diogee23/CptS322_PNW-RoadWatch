@@ -1,0 +1,4 @@
+.env
+__pycache__/
+venv/
+sample_data/*_real_response.json
