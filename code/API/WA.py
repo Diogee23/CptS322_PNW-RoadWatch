@@ -13,5 +13,16 @@ def get_washington_weather():
         full_data = response.json()
         print(full_data)
 
-get_washington_weather()
-        
+
+def get_highway_alerts():
+    BASE_API_URL = "https://www.wsdot.wa.gov/Traffic/api/HighwayAlerts/HighwayAlertsREST.svc/GetAlertsAsJson"
+    params = {"AccessCode": WA_KEY}
+    response = requests.get(BASE_API_URL, params=params)
+    if response.status_code == 200:
+        full_data = response.json()
+        print(full_data)
+        return full_data
+    else:
+        print(f"Request failed with status {response.status_code}: {response.text}")
+
+get_highway_alerts()
