@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+.bodyContents {
+    display: flex;
+    flex-direction: column;
+}
+
+#homeMainContents {
+    display: flex;
+    flex-direction: row;
+    height: 800px;
+    gap: 1%;
+}
+
+#mapViewContainer {
+    width: 60vw;
+    height: 500px;
+    border: solid, 5px, black;
+}
+
+#directionsServiceContainer {
+    width: 40vw;
+    height: 300px;
+    border: solid, 5px, black;
+    padding: 10px;
+}
+
+#startLocationContainer, #destinationContainer {
+    height: 30px;
+}
+
+@media (max-width: 800px) {
+  #mapViewContainer, #directionsServiceContainer {
+    width: 100%;
+  }
+
+  #homeMainContents {
+    flex-direction: column;
+  }
+}
