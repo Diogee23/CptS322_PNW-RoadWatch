@@ -3,6 +3,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PNW RoadWatch - Home</title>
         <link href="style.css" rel="stylesheet" type="text/css" media="all">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+        <link rel="stylesheet" href="code/map/roadwatch-map.css">
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+        <script src="code/map/roadwatch-map.js" defer></script>
         <script src="main.js" defer></script>
 
         <!-- google maps api for location autocomplete from https://developers.google.com/maps/documentation/javascript/place-autocomplete-new#maps_place_autocomplete_element-javascript -->
@@ -46,20 +51,9 @@
 
                         <!-- TODO: set up button to send lat and lng of locations to determine route -->
                         <input type="submit" value="Get Route"></input>
-
                     </form>
-                    
-
-
                 </div>
-
             </div>
-
-
-
         </div>
-
-
-        
     </body>
-<html>
+</html>
