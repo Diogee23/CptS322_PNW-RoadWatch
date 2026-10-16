@@ -22,7 +22,7 @@ assignees: Emily Tran
 ### Acceptance Criteria
 ```gherkin
 Given alert data is available
-Given the user opens the site in Chrome, Safari, or Firefox
+And the user opens the site in Chrome, Safari, or Firefox
 When the page loads
 Then the user sees the PNW RoadWatch header, the map area, and the "Get Route" form
 ```
