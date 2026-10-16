@@ -8,7 +8,7 @@ assignees: Hima Vasani
 ---
 
 **As a** driver  
-**I need** alerts shown as pins on the map, with severity clearly marked
+**I need** alerts shown as pins on the map, with severity clearly marked  
 **So that** I can see where problems are and how serious they are
 
 ### Details and Assumptions
