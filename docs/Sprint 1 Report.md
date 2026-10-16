@@ -1,5 +1,6 @@
 # Sprint 1 Report 
-Video Link: 
+Video Link: https://youtu.be/wqNPriHtrHM
+
 ## What's New (User Facing)
  * Created a map of Oregon, Idaho and Washington
  * Added demo alerts to the map
