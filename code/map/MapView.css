@@ -1,5 +1,5 @@
-.map-view { position: relative; height: 100%; width: 100%; min-height: 320px; }
-.map-view .leaflet-container { height: 100%; width: 100%; }
+/* Styles for the PNW RoadWatch map (code/map/roadwatch-map.js) */
+#mapViewContainer { min-height: 500px; }
 
 .alert-pin { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px;
   border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
@@ -12,6 +12,7 @@
 .map-banner { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000;
   padding: 8px 14px; border-radius: 6px; font: 14px system-ui, sans-serif;
   background: #fff3cd; color: #5c4400; border: 1px solid #e0c36a; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.map-banner[hidden] { display: none; }
 .map-banner.offline { background: #fde2e2; color: #6b1010; border-color: #d98a8a; }
 
 .alert-popup h3 { margin: 0 0 4px; font: 600 15px system-ui, sans-serif; }
@@ -33,3 +34,4 @@
 
 .map-banner.geo-msg { top: auto; bottom: 28px; max-width: calc(100% - 80px); display: flex; align-items: center; gap: 10px; }
 .geo-close { border: 0; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: inherit; padding: 0; }
+.map-banner.geo-msg[hidden] { display: none; }
