@@ -13,6 +13,8 @@
   const STATES_URL = "code/map/us-states.json";   // relative to index.html
   const CACHE_KEY = "pnw-roadwatch:alerts";
   const GLYPH = { low: "i", moderate: "!", high: "!!", critical: "\u26D4" };
+  const GEO_OPTIONS = { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 };
+  const LOCATE_ZOOM = 12;
 
   const escapeHtml = (s) =>
     String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -49,7 +51,7 @@
       this.sourceAgency = sourceAgency;
     }
 
-    // Accepts camelCase or snake_case, nested location or flat latitude/longitude.
+    // Accepts camelCase or snake_case, nested location or flat latitude/longitude
     static fromJSON(j) {
       const loc = j.location ?? { latitude: j.latitude, longitude: j.longitude };
       return new Alert({
@@ -63,7 +65,7 @@
       });
     }
 
-    // TODO: route intersection will be done server-side (PostGIS).
+    // TODO: route intersection will be done server-side (PostGIS)
     intersects(route) { return false; }
   }
 
@@ -118,6 +120,14 @@
       this.banner.hidden = true;
       this.map.getContainer().appendChild(this.banner);
 
+      // Current-location state and controls
+      this.userPos = null;               // { lat, lng, accuracy }
+      this.watchId = null;
+      this.pendingCenter = false;
+      this.userMarker = null;
+      this.userCircle = null;
+      this.addLocateControls();
+
       this.drawRegion();
       this.showPins(this.db.getAll());   // cached alerts, if any
       this.refresh();
@@ -127,6 +137,113 @@
 
     zoomIn() { this.map.zoomIn(); }
     zoomOut() { this.map.zoomOut(); }
+
+    // ---- Current location ----
+
+    addLocateControls() {
+      const container = this.map.getContainer();
+      this.locateBtn = document.createElement("button");
+      this.locateBtn.type = "button";
+      this.locateBtn.className = "locate-btn";
+      this.locateBtn.textContent = "◎";
+      this.locateBtn.title = "Show my location";
+      this.locateBtn.setAttribute("aria-label", "Show my location");
+      L.DomEvent.disableClickPropagation(this.locateBtn);
+      this.locateBtn.addEventListener("click", () => this.locate());
+      container.appendChild(this.locateBtn);
+
+      this.geoBanner = document.createElement("div");
+      this.geoBanner.className = "map-banner geo-msg";
+      this.geoBanner.setAttribute("role", "status");
+      this.geoBanner.hidden = true;
+      this.geoText = document.createElement("span");
+      const close = document.createElement("button");
+      close.type = "button";
+      close.className = "geo-close";
+      close.textContent = "×";
+      close.setAttribute("aria-label", "Dismiss");
+      close.addEventListener("click", () => { this.geoBanner.hidden = true; });
+      this.geoBanner.append(this.geoText, close);
+      L.DomEvent.disableClickPropagation(this.geoBanner);
+      container.appendChild(this.geoBanner);
+    }
+
+    setGeoMessage(msg) {
+      if (!msg) { this.geoBanner.hidden = true; return; }
+      this.geoText.textContent = msg;
+      this.geoBanner.hidden = false;
+    }
+
+    setLocating(on) {
+      this.locateBtn.disabled = on;
+      this.locateBtn.textContent = on ? "…" : "◎";
+    }
+
+    // Ask for permission (first click), then keep the blue dot updated as the user moves
+    locate() {
+      if (!("geolocation" in navigator)) {
+        this.setGeoMessage("Location isn't supported by this browser.");
+        return;
+      }
+      this.setGeoMessage(null);
+      if (this.userPos) { this.centerOnUser(); return; }
+      this.pendingCenter = true;
+      if (this.watchId !== null) return;   // already waiting for the first fix
+      this.setLocating(true);
+      this.watchId = navigator.geolocation.watchPosition(
+        ({ coords }) => {
+          this.userPos = { lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy };
+          this.setLocating(false);
+          this.drawUser();
+          if (this.pendingCenter) { this.pendingCenter = false; this.centerOnUser(); }
+        },
+        (err) => {
+          this.setLocating(false);
+          this.pendingCenter = false;
+          if (err.code === err.PERMISSION_DENIED) {
+            this.stopLocating();
+            this.setGeoMessage("Location access was blocked. Allow it in your browser's site settings to see where you are.");
+          } else if (err.code === err.POSITION_UNAVAILABLE) {
+            this.setGeoMessage("Your location is unavailable right now.");
+          } else {
+            this.setGeoMessage("Finding your location timed out. Still trying…");
+          }
+        },
+        GEO_OPTIONS
+      );
+    }
+
+    stopLocating() {
+      if (this.watchId !== null) { navigator.geolocation.clearWatch(this.watchId); this.watchId = null; }
+    }
+
+    drawUser() {
+      const ll = [this.userPos.lat, this.userPos.lng];
+      if (!this.userMarker) {
+        this.userCircle = L.circle(ll, {
+          radius: this.userPos.accuracy, color: "#1a73e8", weight: 1, fillColor: "#1a73e8", fillOpacity: 0.12, interactive: false,
+        }).addTo(this.map);
+        this.userMarker = L.marker(ll, {
+          icon: L.divIcon({ className: "", html: '<div class="user-dot"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }),
+          interactive: false, zIndexOffset: 1000,
+        }).addTo(this.map);
+        this.locateBtn.classList.add("active");
+      } else {
+        this.userCircle.setLatLng(ll).setRadius(this.userPos.accuracy);
+        this.userMarker.setLatLng(ll);
+      }
+    }
+
+    // Fly to the user, unless they're outside the region the map is locked to
+    centerOnUser() {
+      if (!this.userPos) return;
+      const ll = [this.userPos.lat, this.userPos.lng];
+      if (!L.latLngBounds(PNW_BOUNDS).contains(ll)) {
+        this.setGeoMessage("Your location is outside the WA / OR / ID area this map covers.");
+        return;
+      }
+      this.map.flyTo(ll, Math.max(this.map.getZoom(), LOCATE_ZOOM));
+    }
 
     showPins(alerts) {
       this.pinLayer.clearLayers();
@@ -179,7 +296,7 @@
       this.banner.hidden = false;
     }
 
-    // State borders, outline around the whole region, and dimming outside it.
+    // State borders, outline around the whole region, and dimming outside it
     async drawRegion() {
       try {
         const res = await fetch(STATES_URL);
@@ -204,8 +321,8 @@
 
   window.MapView = MapView;
 
-  // Start the map automatically in <div id="mapViewContainer">.
-  // Change useMock to false once the backend serves /api/alerts.
+  // Start the map automatically in <div id="mapViewContainer">
+  // Change useMock to false once the backend serves /api/alerts
   if (document.getElementById("mapViewContainer")) {
     window.roadwatchMap = new MapView("mapViewContainer", { useMock: true });
   }

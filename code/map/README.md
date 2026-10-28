@@ -7,6 +7,7 @@ Interactive map for PNW RoadWatch. It shows DOT alerts as pins on a zoomable map
 - Alert pins with different colors based on severity (low, moderate, high, critical), each with a symbol
 - Tap a pin to see type, description, severity, location, last-updated time and source agency
 - Refreshes alerts every 60 seconds
+- "My location" button: shows a blue dot with an accuracy circle, follows the user as they move, and centers the map on them (needs HTTPS or `localhost`, and the user must allow location access)
 
 ## Files
 | File | Purpose |
