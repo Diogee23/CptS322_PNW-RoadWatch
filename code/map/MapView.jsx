@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON, Polygon, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON, Polygon, Circle, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapView.css";
@@ -48,6 +48,16 @@ const pinIcon = (severity) =>
     iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -28],
   });
 
+// "You are here" marker: a blue dot with a white ring
+const userIcon = L.divIcon({
+  className: "",
+  html: '<div class="user-dot"></div>',
+  iconSize: [18, 18], iconAnchor: [9, 9],
+});
+
+const GEO_OPTIONS = { enableHighAccuracy: true, maximumAge: 10_000, timeout: 20_000 };
+const LOCATE_ZOOM = 12;
+
 const fmt = (iso) => new Date(iso).toLocaleString();
 
 function ZoomTracker({ onZoom }) {
@@ -70,10 +80,71 @@ const MapView = forwardRef(function MapView(
   const [fetchFailed, setFetchFailed] = useState(false);
   const [now, setNow] = useState(Date.now());
 
+  const [userPos, setUserPos] = useState(null);     // { lat, lng, accuracy } or null
+  const [locating, setLocating] = useState(false);
+  const [geoMessage, setGeoMessage] = useState(null);
+  const watchId = useRef(null);
+  const pendingCenter = useRef(false);               // recenter on the next fix
+
   const showPins = useCallback((list) => setAlerts(list), []);
   const zoomIn = useCallback(() => leafletMap.current?.zoomIn(), []);
   const zoomOut = useCallback(() => leafletMap.current?.zoomOut(), []);
-  useImperativeHandle(ref, () => ({ zoomIn, zoomOut, showPins, get zoomLevel() { return zoomLevel; } }), [zoomIn, zoomOut, showPins, zoomLevel]);
+
+  // Move the map to the user, unless they're outside the region the map is locked to
+  const centerOnUser = useCallback((pos) => {
+    const map = leafletMap.current;
+    if (!map) return;
+    if (!L.latLngBounds(PNW_BOUNDS).contains([pos.lat, pos.lng])) {
+      setGeoMessage("Your location is outside the WA / OR / ID area this map covers.");
+      return;
+    }
+    map.flyTo([pos.lat, pos.lng], Math.max(map.getZoom(), LOCATE_ZOOM));
+  }, []);
+
+  const stopWatching = useCallback(() => {
+    if (watchId.current !== null) {
+      navigator.geolocation.clearWatch(watchId.current);
+      watchId.current = null;
+    }
+  }, []);
+
+  // Ask for permission (first call), then keep the dot updated as the user moves
+  const locate = useCallback(() => {
+    if (!("geolocation" in navigator)) {
+      setGeoMessage("Location isn't supported by this browser.");
+      return;
+    }
+    setGeoMessage(null);
+    if (userPos) { centerOnUser(userPos); return; }
+    pendingCenter.current = true;
+    if (watchId.current !== null) return; // already waiting for the first fix
+    setLocating(true);
+    watchId.current = navigator.geolocation.watchPosition(
+      ({ coords }) => {
+        const pos = { lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy };
+        setUserPos(pos);
+        setLocating(false);
+        if (pendingCenter.current) { pendingCenter.current = false; centerOnUser(pos); }
+      },
+      (err) => {
+        setLocating(false);
+        pendingCenter.current = false;
+        if (err.code === err.PERMISSION_DENIED) {
+          stopWatching();
+          setGeoMessage("Location access was blocked. Allow it in your browser's site settings to see where you are.");
+        } else if (err.code === err.POSITION_UNAVAILABLE) {
+          setGeoMessage("Your location is unavailable right now.");
+        } else {
+          setGeoMessage("Finding your location timed out. Still trying…");
+        }
+      },
+      GEO_OPTIONS
+    );
+  }, [userPos, centerOnUser, stopWatching]);
+
+  useEffect(() => stopWatching, [stopWatching]); // stop tracking on unmount
+
+  useImperativeHandle(ref, () => ({ zoomIn, zoomOut, showPins, locate, get zoomLevel() { return zoomLevel; } }), [zoomIn, zoomOut, showPins, locate, zoomLevel]);
 
   const refresh = useCallback(async () => {
     try {
@@ -115,6 +186,16 @@ const MapView = forwardRef(function MapView(
             : "Data may be outdated. We couldn't reach the latest alert feed."}
         </div>
       )}
+      <button type="button" className={`locate-btn${userPos ? " active" : ""}`} onClick={locate}
+              disabled={locating} aria-label="Show my location" title="Show my location">
+        {locating ? "…" : "◎"}
+      </button>
+      {geoMessage && (
+        <div className="map-banner geo-msg" role="status">
+          {geoMessage}
+          <button type="button" className="geo-close" onClick={() => setGeoMessage(null)} aria-label="Dismiss">×</button>
+        </div>
+      )}
       <MapContainer ref={leafletMap} center={center} zoom={initialZoom} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={PNW_BOUNDS} 
        maxBoundsViscosity={1.0} scrollWheelZoom>
        <ZoomTracker onZoom={setZoomLevel} />
@@ -139,6 +220,13 @@ const MapView = forwardRef(function MapView(
        interactive={false}
        style={{ color: "#2b2b2b", weight: 4, fill: false }}
       />
+        {userPos && (
+          <>
+            <Circle center={[userPos.lat, userPos.lng]} radius={userPos.accuracy} interactive={false}
+                    pathOptions={{ color: "#1a73e8", weight: 1, fillColor: "#1a73e8", fillOpacity: 0.12 }} />
+            <Marker position={[userPos.lat, userPos.lng]} icon={userIcon} interactive={false} zIndexOffset={1000} />
+          </>
+        )}
         {alerts.map((a) => (
           <Marker key={a.alertID} position={[a.location.latitude, a.location.longitude]}
                   icon={pinIcon(a.severity)} eventHandlers={{ click: () => onAlertSelect?.(a) }}>

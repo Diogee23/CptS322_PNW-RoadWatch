@@ -1,5 +1,5 @@
-.map-view { position: relative; height: 100%; width: 100%; min-height: 320px; }
-.map-view .leaflet-container { height: 100%; width: 100%; }
+/* Styles for the PNW RoadWatch map (code/map/roadwatch-map.js) */
+#mapViewContainer { min-height: 500px; }
 
 .alert-pin { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px;
   border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
@@ -12,6 +12,7 @@
 .map-banner { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000;
   padding: 8px 14px; border-radius: 6px; font: 14px system-ui, sans-serif;
   background: #fff3cd; color: #5c4400; border: 1px solid #e0c36a; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.map-banner[hidden] { display: none; }
 .map-banner.offline { background: #fde2e2; color: #6b1010; border-color: #d98a8a; }
 
 .alert-popup h3 { margin: 0 0 4px; font: 600 15px system-ui, sans-serif; }
@@ -19,3 +20,18 @@
 .alert-popup dl { margin: 0; font: 12px system-ui, sans-serif; display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; }
 .alert-popup dt { font-weight: 600; }
 .alert-popup dd { margin: 0; }
+
+/* Current-location feature */
+.user-dot { width: 18px; height: 18px; border-radius: 50%; background: #1a73e8; border: 3px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.25), 0 1px 4px rgba(0,0,0,.4); box-sizing: border-box; }
+
+.locate-btn { position: absolute; top: 80px; left: 10px; z-index: 1000; width: 34px; height: 34px; padding: 0;
+  border: 2px solid rgba(0,0,0,.25); border-radius: 4px; background: #fff; color: #444; font-size: 20px; line-height: 1;
+  cursor: pointer; background-clip: padding-box; }
+.locate-btn:hover { background: #f4f4f4; }
+.locate-btn.active { color: #1a73e8; }
+.locate-btn:disabled { cursor: progress; opacity: .7; }
+
+.map-banner.geo-msg { top: auto; bottom: 28px; max-width: calc(100% - 80px); display: flex; align-items: center; gap: 10px; }
+.geo-close { border: 0; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: inherit; padding: 0; }
+.map-banner.geo-msg[hidden] { display: none; }
