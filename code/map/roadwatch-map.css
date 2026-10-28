@@ -34,3 +34,4 @@
 
 .map-banner.geo-msg { top: auto; bottom: 28px; max-width: calc(100% - 80px); display: flex; align-items: center; gap: 10px; }
 .geo-close { border: 0; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: inherit; padding: 0; }
+.map-banner.geo-msg[hidden] { display: none; }
