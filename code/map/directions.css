@@ -1,0 +1,15 @@
+#directionsPanel { max-height: 420px; overflow-y: auto; font: 14px system-ui, sans-serif; margin-top: 8px; }
+
+.dir-status { margin: 6px 0; color: #444; }
+.dir-status.error { color: #b3261e; }
+.dir-summary { font-size: 18px; font-weight: 600; margin: 4px 0 8px; }
+
+.dir-alerts { padding: 8px 10px; border-radius: 6px; background: #e8f5e9; color: #1b5e20; margin-bottom: 10px; }
+.dir-alerts.has-alerts { background: #fff3cd; color: #5c4400; }
+.dir-alerts ul { margin: 4px 0 0; padding-left: 18px; }
+
+.dir-steps { margin: 0; padding-left: 24px; }
+.dir-steps li { padding: 8px 6px; border-bottom: 1px solid #e5e5e5; cursor: pointer; display: list-item; }
+.dir-steps li:hover, .dir-steps li:focus { background: #f4f7fe; outline: none; }
+.dir-steps li.active { background: #fff0e0; }
+.dir-steps small { display: block; color: #666; margin-top: 2px; }
