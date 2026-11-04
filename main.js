@@ -2,23 +2,30 @@
 async function init() {
     const { PlaceAutocompleteElement } = await google.maps.importLibrary("places");
 
-    const startAutocomplete = new PlaceAutocompleteElement();
-    document.getElementById("startLocationContainer").appendChild(startAutocomplete);
-
-    const endAutocomplete = new PlaceAutocompleteElement();
-    document.getElementById("destinationContainer").appendChild(endAutocomplete);
-
-    // Remember the Place the user picked in each box
+    // The Place the user picked in each box
     let startPlace = null;
     let endPlace = null;
 
-    const onSelect = (setter) => async ({ placePrediction }) => {
-        const place = placePrediction.toPlace();
-        await place.fetchFields({ fields: ["displayName", "formattedAddress", "location"] });
-        setter(place);
-    };
-    startAutocomplete.addEventListener("gmp-select", onSelect((p) => { startPlace = p; }));
-    endAutocomplete.addEventListener("gmp-select", onSelect((p) => { endPlace = p; }));
+    // Build a fresh autocomplete box inside a container. Calling this again
+    // replaces the old box, which is how we empty it.
+    function createAutocomplete(containerId, setPlace) {
+        const container = document.getElementById(containerId);
+        container.replaceChildren();
+
+        const autocomplete = new PlaceAutocompleteElement();
+        autocomplete.addEventListener("gmp-select", async ({ placePrediction }) => {
+            const place = placePrediction.toPlace();
+            await place.fetchFields({ fields: ["displayName", "formattedAddress", "location", "addressComponents"] });
+            setPlace(place);
+        });
+        container.appendChild(autocomplete);
+    }
+
+    const setStart = (p) => { startPlace = p; };
+    const setEnd = (p) => { endPlace = p; };
+
+    createAutocomplete("startLocationContainer", setStart);
+    createAutocomplete("destinationContainer", setEnd);
 
     // Directions
     const panel = document.getElementById("directionsPanel");
@@ -27,7 +34,14 @@ async function init() {
     document.getElementById("getDirectionsBtn").addEventListener("click", () => {
         directions.showRoute(startPlace, endPlace);
     });
-    document.getElementById("clearDirectionsBtn")?.addEventListener("click", () => directions.clear());
+
+    document.getElementById("clearDirectionsBtn")?.addEventListener("click", () => {
+        directions.clear();   // route, highlighted step and panel
+        startPlace = null;    // forget the old places so Get Route can't reuse them
+        endPlace = null;
+        createAutocomplete("startLocationContainer", setStart);   // empty the boxes
+        createAutocomplete("destinationContainer", setEnd);
+    });
 }
 
 void init();

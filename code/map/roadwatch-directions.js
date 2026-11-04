@@ -21,9 +21,21 @@
     const min = Math.max(1, Math.round(ms / 60000));
     return min < 60 ? min + " min" : Math.floor(min / 60) + " hr " + (min % 60) + " min";
   };
+
   // Routes library returns LatLngAltitude objects (lat/lng as numbers); be tolerant of functions too
   const toLatLng = (p) => [typeof p.lat === "function" ? p.lat() : p.lat, typeof p.lng === "function" ? p.lng() : p.lng];
   const toLatLngs = (path) => (path || []).map(toLatLng);
+
+  const REGION_STATES = ["WA", "OR", "ID"];
+
+  // True if the place is in Washington, Oregon or Idaho (USA)
+  // Checking the country too matters: "WA" is also Western Australia
+  const inRegion = (place) => {
+  const comps = place.addressComponents || [];
+  const find = (type) => comps.find((c) => c.types.includes(type));
+  const country = find("country");
+  const state = find("administrative_area_level_1");
+  return !!country && country.shortText === "US" && !!state && REGION_STATES.includes(state.shortText);};
 
   class DirectionsController {
     constructor(mapView, panelEl) {
@@ -50,11 +62,20 @@
 
     async showRoute(origin, destination) {
       if (!origin || !destination) {
-        this.setStatus("Pick both a start location and a destination from the suggestions.", true);
+        this.setStatus("Please enter a starting location and a destination.", true);
+        return;
+      }
+      const outside = [];
+      if (!inRegion(origin)) outside.push("starting location");
+      if (!inRegion(destination)) outside.push("destination");
+      if (outside.length) {
+        this.clear();   // remove any previous route so it doesn't stay on the map
+        const who = outside.length === 2 ? "Your starting location and destination are" : `Your ${outside[0]} is`;
+        this.setStatus(`${who} outside Washington, Oregon, and Idaho. Please enter locations within this region.`, true);
         return;
       }
       this.clear();
-      this.setStatus("Finding route…");
+      this.setStatus("Finding route...");
 
       try {
         const { Route } = await google.maps.importLibrary("routes");
