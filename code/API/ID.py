@@ -21,15 +21,24 @@ def get_severity(condition):
 def get_idaho_weather():
     BASE_API_URL = "https://511.idaho.gov/api/v3/get/winterroads"
     params = {"key": ID_KEY }
-    response = requests.get(BASE_API_URL, params=params)
-    ##print(response)
-    if response.status_code == 200:
-        parsed_data = []
-        full_data = response.json()
-        for item in range(len(full_data)):
-            if full_data[item]["Overall Status"] != "No Report":
-                parsed_data.append(full_data[item])
-        return parsed_data
+    try:
+        response = requests.get(BASE_API_URL, params=params, timeout=15)
+    
+        if response.status_code == 200:
+            parsed_data = []
+            full_data = response.json()
+            for item in range(len(full_data)):
+                if full_data[item]["Overall Status"] != "No Report":
+                    parsed_data.append(full_data[item])
+            return parsed_data
+        else:
+            return []
+    except requests.RequestException as error:
+            print(f"Error fetching Idaho DOT reports: {error}")
+            return []
+    except ValueError as error:
+        print(f"Error decoding Idaho DOT JSON response: {error}")
+        return []
 
 def process_idaho_alert(alert):
     # Extract and decode the route
@@ -70,6 +79,7 @@ def process_idaho_alert(alert):
         else None
     )
     return {
+        "ExternalId": str(alert.get("Id")),
         "EventCategory": "Road Conditions",
         "HeadlineDescription": headline,
         "Severity": severity,
@@ -81,6 +91,10 @@ def process_idaho_alert(alert):
 def normalize_idaho_data():
     return [process_idaho_alert(alert) for alert in get_idaho_weather()]
 
-data = normalize_idaho_data()
-print(data)
-print(len(data))
+if __name__ == "__main__":
+    normalized_alerts = normalize_idaho_data()
+
+    print(f"Retrieved {len(normalized_alerts)} Idaho DOT alerts.")
+
+    for alert in normalized_alerts[:5]:
+        print(alert)
