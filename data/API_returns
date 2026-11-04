@@ -1,62 +1,10 @@
-http://wsdot.wa.gov/Traffic/api/WeatherInformation/WeatherInformationREST.svc/GetCurrentWeatherInformationAsJson?
-// Returns all weather stations in WA
-[
-    {
-        "BarometricPressure": 959.70,
-        "Latitude": 47.474800000000,
-        "Longitude": -122.270400000000,
-        "PrecipitationInInches": null,
-        "ReadingTime": "/Date(1791863040000-0700)/",
-        "RelativeHumidity": 72,
-        "SkyCoverage": "N/A",
-        "StationID": 1909,
-        "StationName": "S 144th St on SB I-5 at mp 155.32",
-        "TemperatureInFahrenheit": 50.72,
-        "Visibility": 1,
-        "WindDirection": 145,
-        "WindDirectionCardinal": "SE",
-        "WindGustSpeedInMPH": 0,
-        "WindSpeedInMPH": 0
-    }
-]
-
-https://511.idaho.gov/api/v3/get/winterroads?
-// returns winter road reports for idaho
-
-[
-    {
-        "Id": 694,
-        "LocationDescription": "Banks/Alder Creek Rd. from MP 0 to MP 12",
-        "Overall Status": "No Report",
-        "Weather Conditions": null,
-        "Special Conditions": null,
-        "AreaName": "Local",
-        "RoadwayName": "CO-17",
-        "EncodedPolyline": [ "string removed for space "          ],
-        "LastUpdated": 1766182373
-    },
-    {
-        "Id": 695,
-        "LocationDescription": "Alder Creek Rd/Lowman from MP 12 to MP 34",
-        "Overall Status": "No Report",
-        "Weather Conditions": null,
-        "Special Conditions": null,
-        "AreaName": "Local",
-        "RoadwayName": "CO-17",
-        "EncodedPolyline": [ "string removed for space "   ],
-        "LastUpdated": 1766182373
-    },
-    {
-        "Id": 428,
-        "LocationDescription": "Nezperce/Kamiah from MP 0 to MP 31",
-        "Overall Status": "Wet",
-        "Weather Conditions": [
-            "Cloudy"
-        ],
-        "Special Conditions": [],
-        "AreaName": "District 2 Foreman 250",
-        "RoadwayName": "SH-162",
-        "EncodedPolyline": ["string removed for space " ],
-        "LastUpdated": 1791813923
-    },
-]
+{'EventCategory': 'Maintenance', 'HeadlineDescription': 'From 9 p.m. Friday, Nov. 6 to 6 a.m. Saturday, Nov. 7, 
+    one left lane or two right lanes of northbound State Route 99 from East Marginal Way to South Atlantic Street 
+    (mileposts 27-30) will close for maintenance.', 'Severity': 'Low', 'Coordinates': {'Latitude': 47.568716136999996, 
+    'Longitude': -122.33534617449999}, 'LastUpdatedTime': '2026-10-30 16:49:54 -0700', 'Source': 'WA DOT'}
+{'EventCategory': 'Accident', 'HeadlineDescription': 'US101, 7 miles North of Newport - Sunken pavement is 
+    causing minimal delay to traffic. Use caution.', 'Severity': 'Low', 'Coordinates': {'Latitude': 44.72723, 
+    'Longitude': -124.05767}, 'LastUpdatedTime': '2026-09-26 08:40:23 -0700', 'Source': 'OR DOT'}
+{'EventCategory': 'Road Conditions', 'HeadlineDescription': 'SH-75: Clayton/Challis from MP 217 to MP 244 - Dry',
+     'Severity': 'Low', 'Coordinates': {'Latitude': 44.32151606968215, 'Longitude': -114.32282931540342}, 
+     'LastUpdatedTime': '2026-11-03 13:20:17 +0000', 'Source': 'ID DOT'}
