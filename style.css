@@ -7,6 +7,10 @@
     flex-direction: column;
 }
 
+:root {
+    --panel-height: max(650px, calc(100vh - 180px));
+}
+
 #homeMainContents {
     display: flex;
     flex-direction: row;
@@ -16,26 +20,41 @@
 
 #mapViewContainer {
     width: 60vw;
-    height: 500px;
-    border: solid, 5px, black;
+    height: var(--panel-height);
+    border: 5px solid black;
 }
 
 #directionsServiceContainer {
     width: 40vw;
-    height: auto;              
+    height: var(--panel-height);
     border: 5px solid black;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#directionsServiceContainer > h2,
+#directionsForm {
+    flex-shrink: 0;
 }
 
 #startLocationContainer, #destinationContainer {
     margin: 4px 0 12px; 
 }
 
+#directionsPanel {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
 @media (max-width: 800px) {
   #mapViewContainer, #directionsServiceContainer {
     width: 100%;
   }
-
+  #directionsServiceContainer {
+    height: 600px;
+  }
   #homeMainContents {
     flex-direction: column;
   }
