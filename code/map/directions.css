@@ -1,4 +1,4 @@
-#directionsPanel { max-height: 420px; overflow-y: auto; font: 14px system-ui, sans-serif; margin-top: 8px; }
+#directionsPanel { font: 14px system-ui, sans-serif; margin-top: 8px; }
 
 .dir-status { margin: 6px 0; color: #444; }
 .dir-status.error { color: #b3261e; }
