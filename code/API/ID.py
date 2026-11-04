@@ -27,9 +27,12 @@ def get_idaho_weather():
         if response.status_code == 200:
             parsed_data = []
             full_data = response.json()
-            for item in range(len(full_data)):
-                if full_data[item]["Overall Status"] != "No Report":
-                    parsed_data.append(full_data[item])
+            EXCLUDED_STATUSES = {"no report", "dry"}
+
+            for item in full_data:
+                status = (item.get("Overall Status") or "").strip().lower()
+                if status not in EXCLUDED_STATUSES:
+                    parsed_data.append(item)
             return parsed_data
         else:
             return []
