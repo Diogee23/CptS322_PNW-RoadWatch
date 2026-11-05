@@ -1,4 +1,5 @@
 .env
 __pycache__/
 venv/
+.pytest_cache/
 sample_data/*_real_response.json
