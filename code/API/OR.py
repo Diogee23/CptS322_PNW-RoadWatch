@@ -7,19 +7,9 @@ load_dotenv() # load environment variables from .env file
 OR_KEY = os.getenv('OR_API_KEY')
 
 
-
-
-def get_oregon_reports():
-    BASE_API_URL = "http://api.odot.state.or.us/tripcheck/RW/Reports?"
-    params = {"key": OR_KEY }
-    response = requests.get(BASE_API_URL, params=params)
-    if response.status_code == 200:
-        full_data = response.json()
-        return full_data["road-weather-reports"]
-
 def get_oregon_metadata():
     return_list = []
-    BASE_API_URL = "http://api.odot.state.or.us/tripcheck/RW/Metadata?"
+    BASE_API_URL = "https://api.odot.state.or.us/tripcheck/RW/Metadata?"
     params = {"key": OR_KEY }
     response = requests.get(BASE_API_URL, params=params)
     
@@ -41,7 +31,7 @@ def get_oregon_reports():
         return []
 
     params = {"key": OR_KEY}
-    BASE_API_URL = 'http://api.odot.state.or.us/tripcheck/Incidents/WazeSpec?'
+    BASE_API_URL = 'https://api.odot.state.or.us/tripcheck/Incidents/WazeSpec?'
     try:
         response = requests.get(
             BASE_API_URL,
@@ -171,6 +161,7 @@ def process_oregon_alert(alert):
     )
 
     return {
+        "ExternalId": str(alert.get("id")),
         "EventCategory": event_category,
         "HeadlineDescription": headline,
         "Severity": severity,

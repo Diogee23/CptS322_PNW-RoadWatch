@@ -20,7 +20,7 @@ def convert_time(date):
     formatted_date = date.strftime("%Y-%m-%d %H:%M:%S")
     return formatted_date
 
-def process_alert(alert):
+def process_wa_alert(alert):
     # Extract start and end locations
     start = alert["StartRoadwayLocation"]
     end = alert["EndRoadwayLocation"]
@@ -55,6 +55,7 @@ def process_alert(alert):
 
     # Return only the requested fields
     return {
+        "ExternalId": str(alert["AlertID"]),
         "EventCategory": alert["EventCategory"],
         "HeadlineDescription": alert["HeadlineDescription"].strip(),
         "Severity": alert["Priority"],
@@ -79,7 +80,6 @@ def get_washington_weather():
 def get_highway_alerts():
     BASE_API_URL = "https://www.wsdot.wa.gov/Traffic/api/HighwayAlerts/HighwayAlertsREST.svc/GetAlertsAsJson"
     params = {"AccessCode": WA_KEY}
-    response = requests.get(BASE_API_URL, params=params)
     try:
         response = requests.get(BASE_API_URL, params=params, timeout=15)
         response.raise_for_status()
@@ -89,6 +89,12 @@ def get_highway_alerts():
         return []
 
 def normalize_wa_data():
-    return [process_alert(alert) for alert in get_highway_alerts()]
+    return [process_wa_alert(alert) for alert in get_highway_alerts()]
 
-print(normalize_wa_data())
+if __name__ == "__main__":
+    normalized_alerts = normalize_wa_data()
+
+    print(f"Retrieved {len(normalized_alerts)} Washington DOT alerts.")
+
+    for alert in normalized_alerts[:5]:
+        print(alert)
