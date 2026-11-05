@@ -1,38 +1,85 @@
 [
   {
-    "StationID": 1913,
-    "StationName": "Snoqualmie Pass",
-    "Latitude": 47.4245,
-    "Longitude": -121.4137,
-    "ReadingTime": "/Date(1792080000000-0700)/",
-    "TemperatureInFahrenheit": 29.5,
-    "PrecipitationInInches": 0.12,
-    "SkyCoverage": "Snow",
-    "WindSpeedInMPH": 14,
-    "Visibility": 2
+    "AlertID": 512345,
+    "Priority": "High",
+    "EventCategory": "Weather",
+    "EventStatus": "Open",
+    "HeadlineDescription": "Chains required on vehicles over 10,000 GVW. Traction tires advised.  ",
+    "StartRoadwayLocation": {
+      "RoadName": "I-90",
+      "Description": "Snoqualmie Pass",
+      "Latitude": 47.4245,
+      "Longitude": -121.4137,
+      "MilePost": 52
+    },
+    "EndRoadwayLocation": {
+      "RoadName": "I-90",
+      "Description": "Hyak",
+      "Latitude": 47.3915,
+      "Longitude": -121.3946,
+      "MilePost": 54
+    },
+    "County": "King",
+    "LastUpdatedTime": "/Date(1792080000000-0700)/",
+    "StartTime": "/Date(1792070000000-0700)/"
   },
   {
-    "StationID": 2041,
-    "StationName": "Stevens Pass",
-    "Latitude": 47.7462,
-    "Longitude": -121.0886,
-    "ReadingTime": "/Date(1792080300000-0700)/",
-    "TemperatureInFahrenheit": 34.1,
-    "PrecipitationInInches": 0.0,
-    "SkyCoverage": "Overcast",
-    "WindSpeedInMPH": 8,
-    "Visibility": 10
+    "AlertID": 512377,
+    "Priority": "Highest",
+    "EventCategory": "Closure",
+    "EventStatus": "Open",
+    "HeadlineDescription": "US 2 is closed in both directions at Stevens Pass due to avalanche control.",
+    "StartRoadwayLocation": {
+      "RoadName": "US 2",
+      "Description": "Stevens Pass",
+      "Latitude": 47.7462,
+      "Longitude": -121.0886,
+      "MilePost": 64
+    },
+    "EndRoadwayLocation": {
+      "RoadName": "US 2",
+      "Latitude": 0,
+      "Longitude": 0
+    },
+    "County": "Chelan",
+    "LastUpdatedTime": "/Date(1792080300000-0700)/"
   },
   {
-    "StationID": 2210,
-    "StationName": "Pullman - SR 270",
-    "Latitude": 46.7298,
-    "Longitude": -117.1817,
-    "ReadingTime": "/Date(1792080600000-0700)/",
-    "TemperatureInFahrenheit": 41.0,
-    "PrecipitationInInches": 0.0,
-    "SkyCoverage": "Clear",
-    "WindSpeedInMPH": 5,
-    "Visibility": 10
+    "AlertID": 512402,
+    "Priority": "Medium",
+    "EventCategory": "Collision",
+    "EventStatus": "Open",
+    "HeadlineDescription": "Collision blocking the right lane on US 195 near Colfax.",
+    "StartRoadwayLocation": {
+      "RoadName": "US 195",
+      "Latitude": 46.8806,
+      "Longitude": -117.3636
+    },
+    "EndRoadwayLocation": {
+      "RoadName": "US 195",
+      "Latitude": 46.879,
+      "Longitude": -117.364
+    },
+    "County": "Whitman",
+    "LastUpdatedTime": "/Date(1792080600000-0700)/"
+  },
+  {
+    "AlertID": 512450,
+    "Priority": "Low",
+    "EventCategory": "Maintenance",
+    "EventStatus": "Open",
+    "HeadlineDescription": "Shoulder work on SR 270 between Pullman and the Idaho state line.",
+    "StartRoadwayLocation": {
+      "RoadName": "SR 270",
+      "Latitude": 46.7298,
+      "Longitude": -117.1817
+    },
+    "EndRoadwayLocation": {
+      "RoadName": "SR 270",
+      "Latitude": 46.727,
+      "Longitude": -117.04
+    },
+    "County": "Whitman",
+    "LastUpdatedTime": "/Date(1792080900000-0700)/"
   }
 ]

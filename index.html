@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -5,9 +6,12 @@
         <link href="style.css" rel="stylesheet" type="text/css" media="all">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
         <link rel="stylesheet" href="code/map/roadwatch-map.css">
+        <link rel="stylesheet" href="code/map/directions.css">
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+        <!-- Order matters: deferred scripts run in this order, and each needs the one before it -->
         <script src="code/map/roadwatch-map.js" defer></script>
+        <script src="code/map/roadwatch-directions.js" defer></script>
         <script src="main.js" defer></script>
 
         <!-- google maps api for location autocomplete from https://developers.google.com/maps/documentation/javascript/place-autocomplete-new#maps_place_autocomplete_element-javascript -->
@@ -39,7 +43,9 @@
                 <div id="directionsServiceContainer">
                     <h2>Get Directions</h2>
 
-                    <form>
+                    <!-- This was a <form>; it's a <div> now so the page doesn't reload when the button
+                         (or Enter in an autocomplete box) is used. -->
+                    <div id="directionsForm">
                         <!-- TODO: have checker for location search -> if not WA, OR, or ID, display a warning -->
                         <label for="startLocation">Input Starting Location:</label>
                         <div id="startLocationContainer">
@@ -49,9 +55,12 @@
                         <div id="destinationContainer">
                         </div><br>
 
-                        <!-- TODO: set up button to send lat and lng of locations to determine route -->
-                        <input type="submit" value="Get Route"></input>
-                    </form>
+                        <button type="button" id="getDirectionsBtn">Get Route</button>
+                        <button type="button" id="clearDirectionsBtn">Clear</button>
+                    </div>
+
+                    <!-- Route summary, alerts along the route, and step-by-step directions appear here -->
+                    <div id="directionsPanel" aria-live="polite"></div>
                 </div>
             </div>
         </div>

@@ -1,38 +1,63 @@
 [
   {
     "Id": 88012,
-    "RoadwayName": "I-90 Fourth of July Pass",
+    "RoadwayName": "I-90",
+    "LocationDescription": "Fourth of July Pass",
     "AreaName": "North Idaho",
-    "Weather Conditions": "Heavy snow",
-    "Primary Condition": "Snow and ice covered",
+    "Overall Status": "Icy Patches",
+    "Weather Conditions": "Light snow",
     "LastUpdated": 1792082000,
-    "EncodedPolyline": "sxsaHzbafUs]k~H"
+    "EncodedPolyline": [
+      "sxsaHzbafU~z@s~Fz_BwxH"
+    ]
   },
   {
     "Id": 88047,
-    "RoadwayName": "US-95 Lewiston Grade",
+    "RoadwayName": "US-95",
+    "LocationDescription": "Lewiston Grade",
     "AreaName": "North Central",
+    "Overall Status": "Wet",
     "Weather Conditions": "Fog",
-    "Primary Condition": "Wet",
     "LastUpdated": 1792082600,
-    "EncodedPolyline": "gomzGfv{hUwuBw|A"
+    "EncodedPolyline": [
+      "gomzGfv{hUgtDw|A"
+    ]
   },
   {
     "Id": 88090,
-    "RoadwayName": "ID-21 Banner Summit",
+    "RoadwayName": "ID-21",
+    "LocationDescription": "Banner Summit",
     "AreaName": "Southwest",
+    "Overall Status": "Closed",
     "Weather Conditions": "Blowing snow",
-    "Primary Condition": "Road closed",
     "LastUpdated": 1792083000,
-    "EncodedPolyline": "guumGnve~Twj@ovA"
+    "EncodedPolyline": [
+      "guumGnve~T",
+      "_awmG~~b~To}@o}@"
+    ]
+  },
+  {
+    "Id": 88095,
+    "RoadwayName": "US-95",
+    "LocationDescription": "Moscow to Genesee",
+    "AreaName": "North Central",
+    "Overall Status": "Dry",
+    "Weather Conditions": null,
+    "LastUpdated": 1792083050,
+    "EncodedPolyline": [
+      "olf|GfrbiUnzXwxH"
+    ]
   },
   {
     "Id": 88111,
-    "RoadwayName": "I-84 Boise",
+    "RoadwayName": "I-84",
+    "LocationDescription": "Boise",
     "AreaName": "Southwest",
+    "Overall Status": "No Report",
     "Weather Conditions": null,
-    "Primary Condition": "Dry",
     "LastUpdated": 1792083100,
-    "EncodedPolyline": "_sbiG~hfdU"
+    "EncodedPolyline": [
+      "_sbiG~hfdU"
+    ]
   }
 ]

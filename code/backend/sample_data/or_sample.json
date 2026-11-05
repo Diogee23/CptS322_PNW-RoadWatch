@@ -1,24 +1,55 @@
 {
-  "road-weather-reports": [
+  "incident": [
     {
-      "report-id": "RW-501",
-      "location-name": "Santiam Pass - US 20",
-      "latitude": 44.4237,
-      "longitude": -121.8578,
-      "road-condition": "Carry chains or traction tires",
-      "weather-condition": "Snowing",
-      "temperature": 30,
-      "entry-time": "2026-10-15T16:10:00Z"
+      "id": "88123",
+      "type": "ROAD_CLOSED",
+      "subtype": "ROAD_CLOSED_HAZARD",
+      "description": "OR 58 closed both directions at Willamette Pass due to downed trees.",
+      "location": {
+        "street": "OR 58",
+        "polyline": "43.597000 -122.035000 43.590000 -122.020000",
+        "direction": "BOTH_DIRECTIONS"
+      },
+      "starttime": "2026-10-15T07:30:00-07:00",
+      "updatetime": "2026-10-15T09:10:00-07:00"
     },
     {
-      "report-id": "RW-517",
-      "location-name": "Government Camp - US 26",
-      "latitude": 45.3018,
-      "longitude": -121.7543,
-      "road-condition": "Bare pavement",
-      "weather-condition": "Cloudy",
-      "temperature": 38,
-      "entry-time": "2026-10-15T16:20:00Z"
+      "id": "88140",
+      "type": "HAZARD",
+      "subtype": "HAZARD_WEATHER_ICE",
+      "description": "Icy conditions reported on US 20 at Santiam Pass. Carry chains or traction tires.",
+      "location": {
+        "street": "US 20",
+        "polyline": "44.423700 -121.857800 44.420000 -121.850000",
+        "direction": "BOTH_DIRECTIONS"
+      },
+      "starttime": "2026-10-15T06:00:00-07:00",
+      "updatetime": "2026-10-15T09:20:00-07:00"
+    },
+    {
+      "id": "88155",
+      "type": "ACCIDENT",
+      "subtype": "ACCIDENT_MINOR",
+      "description": "Crash on I-84 eastbound near Pendleton. Expect minimal delay.",
+      "location": {
+        "street": "I-84",
+        "polyline": "45.672100 -118.788600 45.672100 -118.788600",
+        "direction": "ONE_DIRECTION"
+      },
+      "starttime": "2026-10-15T08:45:00-07:00",
+      "updatetime": "2026-10-15T09:05:00-07:00"
+    },
+    {
+      "id": "88160",
+      "type": "CONSTRUCTION",
+      "subtype": "",
+      "description": "Bridge work on US 26 near Government Camp, one lane closed.",
+      "location": {
+        "street": "US 26",
+        "polyline": "45.301800 -121.754300 45.302500 -121.740000"
+      },
+      "starttime": "2026-10-14T07:00:00-07:00",
+      "updatetime": "2026-10-15T08:00:00-07:00"
     }
   ]
 }
