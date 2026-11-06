@@ -108,10 +108,21 @@
       this.zoomLevel = this.map.getZoom();
       this.map.on("zoomend", () => { this.zoomLevel = this.map.getZoom(); });
 
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      this.mapLoadMessage = document.getElementById("mapLoadMessage");
+      let loadedTiles = 0;
+      const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         bounds: PNW_BOUNDS, noWrap: true,
-      }).addTo(this.map);
+      });
+      tiles.on("loading", () => { loadedTiles = 0; });
+      tiles.on("tileload", () => {
+        loadedTiles += 1;
+        this.setMapLoadMessage(false);
+      });
+      tiles.on("load", () => {
+        if (loadedTiles === 0) this.setMapLoadMessage(true);
+      });
+      tiles.addTo(this.map);
 
       this.pinLayer = L.layerGroup().addTo(this.map);
       this.banner = document.createElement("div");
@@ -133,6 +144,10 @@
       this.refresh();
       setInterval(() => this.refresh(), REFRESH_MS);
       setInterval(() => this.updateBanner(), 30000);
+    }
+
+    setMapLoadMessage(visible) {
+      if (this.mapLoadMessage) this.mapLoadMessage.hidden = !visible;
     }
 
     zoomIn() { this.map.zoomIn(); }
@@ -324,6 +339,13 @@
   // Start the map automatically in <div id="mapViewContainer">
   // Change useMock to false once the backend serves /api/alerts
   if (document.getElementById("mapViewContainer")) {
-    window.roadwatchMap = new MapView("mapViewContainer", { useMock: true });
+    try {
+      if (typeof L === "undefined") throw new Error("Leaflet did not load.");
+      window.roadwatchMap = new MapView("mapViewContainer", { useMock: true });
+    } catch (e) {
+      console.error("Could not initialize the map:", e);
+      const message = document.getElementById("mapLoadMessage");
+      if (message) message.hidden = false;
+    }
   }
 })();

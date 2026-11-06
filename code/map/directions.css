@@ -4,12 +4,20 @@
 .dir-status.error { color: #b3261e; }
 .dir-summary { font-size: 18px; font-weight: 600; margin: 4px 0 8px; }
 
-.dir-alerts { padding: 8px 10px; border-radius: 6px; background: #e8f5e9; color: #1b5e20; margin-bottom: 10px; }
-.dir-alerts.has-alerts { background: #fff3cd; color: #5c4400; }
-.dir-alerts ul { margin: 4px 0 0; padding-left: 18px; }
-
 .dir-steps { margin: 0; padding-left: 24px; }
 .dir-steps li { padding: 8px 6px; border-bottom: 1px solid #e5e5e5; cursor: pointer; display: list-item; }
 .dir-steps li:hover, .dir-steps li:focus { background: #f4f7fe; outline: none; }
 .dir-steps li.active { background: #fff0e0; }
 .dir-steps small { display: block; color: #666; margin-top: 2px; }
+
+/* css for route filter/save buttons */
+.dir-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 4px 0 12px; }
+.dir-filter { display: inline-flex; align-items: center; gap: 8px; color: #334b5b; font-weight: 600; cursor: pointer; }
+.dir-filter input { width: 16px; height: 16px; margin: 0; accent-color: #17364b; }
+.dir-save { min-height: 38px; padding: 0 14px; border: 1px solid #17364b; border-radius: 3px; background: #17364b; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.dir-save:hover { background: #24536c; }
+.dir-filter input:focus-visible, .dir-save:focus-visible { outline: 3px solid #78b9c5; outline-offset: 2px; }
+
+.dir-alerts { padding: 8px 10px; border-radius: 6px; background: #e8f5e9; color: #1b5e20; margin-bottom: 10px; }
+.dir-alerts.has-alerts { background: #fff3cd; color: #5c4400; }
+.dir-alerts ul { margin: 4px 0 0; padding-left: 18px; }

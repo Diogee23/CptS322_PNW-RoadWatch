@@ -112,9 +112,32 @@
       summary.textContent = `${fmtTime(route.durationMillis)} · ${fmtDist(route.distanceMeters)}`;
       this.panel.appendChild(summary);
 
+      const actions = document.createElement("div");
+      actions.className = "dir-actions";
+
+      // route filter checkbox
+      const filterLabel = document.createElement("label");
+      filterLabel.className = "dir-filter";
+      const filterCheckbox = document.createElement("input");
+      filterCheckbox.type = "checkbox";
+      filterCheckbox.checked = true;
+      filterCheckbox.setAttribute("aria-controls", "routeAlerts");
+      const filterText = document.createElement("span");
+      filterText.textContent = "Show weather alerts on route";
+      filterLabel.append(filterCheckbox, filterText);
+
+      // save route button
+      const saveButton = document.createElement("button");
+      saveButton.type = "button";
+      saveButton.className = "dir-save";
+      saveButton.textContent = "Save route";
+      actions.append(filterLabel, saveButton);
+      this.panel.appendChild(actions);
+
       // Alerts near the route
       const nearby = this.alertsNear(latlngs);
       const alertBox = document.createElement("div");
+      alertBox.id = "routeAlerts";
       alertBox.className = "dir-alerts" + (nearby.length ? " has-alerts" : "");
       if (nearby.length) {
         const h = document.createElement("strong");
