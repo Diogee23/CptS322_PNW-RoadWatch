@@ -350,7 +350,7 @@
       if (typeof L === "undefined") throw new Error("Leaflet did not load.");
       window.roadwatchMap = new MapView("mapViewContainer", {
        useMock: false,
-       apiUrl: "https://cpts322-pnw-roadwatch.onrender.com/api/alerts",
+       apiUrl: "https://cpts322-pnw-roadwatch-866b.onrender.com/api/alerts",
       });
     } catch (e) {
       console.error("Could not initialize the map:", e);
