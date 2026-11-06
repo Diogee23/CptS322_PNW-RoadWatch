@@ -60,7 +60,7 @@ def alerts():
     or_data = normalize_oregon_data()
     wa_data = normalize_wa_data()
     complete_data = id_data + or_data + wa_data
-    return complete_data
+    return jsonify(complete_data)
 
 
 @app.errorhandler(404)
