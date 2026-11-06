@@ -52,6 +52,7 @@ body {
 }
 
 #mapViewContainer {
+    position: relative;
     width: 60vw;
     height: var(--panel-height);
     flex: 1.45 1 0;
