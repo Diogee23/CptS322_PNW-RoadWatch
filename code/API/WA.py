@@ -61,7 +61,7 @@ def process_wa_alert(alert):
     return {
         "alertID": str(alert["AlertID"]),
         "alertType": alert["EventCategory"],
-        "severity": severity_map[alert["Priority"]],
+        "severity": alert["Priority"],
         "description": alert["HeadlineDescription"].strip(),
        
         "location": {
