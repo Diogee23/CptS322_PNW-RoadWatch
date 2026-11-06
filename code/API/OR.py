@@ -133,8 +133,8 @@ def process_oregon_alert(alert):
             last_lat, last_lon = points[-1]
 
             coordinates = {
-                "Latitude": (first_lat + last_lat) / 2,
-                "Longitude": (first_lon + last_lon) / 2,
+                "latitude": (first_lat + last_lat) / 2,
+                "longitude": (first_lon + last_lon) / 2,
             }
 
         except ValueError:

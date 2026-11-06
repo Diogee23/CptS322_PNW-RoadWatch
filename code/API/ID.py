@@ -58,8 +58,8 @@ def process_idaho_alert(alert):
 
     if points:
         coordinates = {
-            "Latitude": sum(lat for lat, lon in points) / len(points),
-            "Longitude": sum(lon for lat, lon in points) / len(points),
+            "latitude": sum(lat for lat, lon in points) / len(points),
+            "longitude": sum(lon for lat, lon in points) / len(points),
         }
 
     # Extract road condition and map severity

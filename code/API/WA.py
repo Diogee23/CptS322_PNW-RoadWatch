@@ -61,8 +61,8 @@ def process_wa_alert(alert):
         "description": alert["HeadlineDescription"].strip(),
        
         "location": {
-            "Latitude": latitude,
-            "Longitude": longitude
+            "latitude": latitude,
+            "longitude": longitude
         },
         
         "sourceAgency": "WA DOT",
