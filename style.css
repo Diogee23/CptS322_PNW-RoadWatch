@@ -2,6 +2,39 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    background: #f3f6f8;
+    color: #1d2b38;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.header {
+    padding: 22px clamp(20px, 4vw, 56px);
+    background: #17364b;
+    color: #fff;
+    border-bottom: 4px solid #3c8190;
+}
+
+#headerTitle h1 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    letter-spacing: 0.01em;
+}
+
+#headerTitle h3 {
+    margin: 6px 0 0;
+    color: #d7e5eb;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* Main map and directions layout */
+#homeMainContents {
+    gap: 20px;
+    padding: 22px clamp(16px, 3vw, 40px);
+}
+
 .bodyContents {
     display: flex;
     flex-direction: column;
@@ -21,16 +54,26 @@
 #mapViewContainer {
     width: 60vw;
     height: var(--panel-height);
-    border: 5px solid black;
+    flex: 1.45 1 0;
+    width: auto;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #cbd5dc;
+    background: #e7edf0;
+    box-shadow: 0 2px 8px rgb(23 54 75 / 10%);
 }
 
 #directionsServiceContainer {
-    width: 40vw;
     height: var(--panel-height);
-    border: 5px solid black;
-    padding: 10px;
     display: flex;
     flex-direction: column;
+    flex: 1 1 0;
+    width: auto;
+    min-width: 280px;
+    padding: 20px;
+    border: 1px solid #cbd5dc;
+    background: #fff;
+    box-shadow: 0 2px 8px rgb(23 54 75 / 8%);
 }
 
 #directionsServiceContainer > h2,
@@ -48,14 +91,84 @@
     overflow-y: auto;
 }
 
-@media (max-width: 800px) {
-  #mapViewContainer, #directionsServiceContainer {
+#directionsServiceContainer > h2 {
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e1e7eb;
+    color: #17364b;
+    font-size: 1.25rem;
+}
+
+#directionsForm label {
+    display: block;
+    margin-bottom: 6px;
+    color: #334b5b;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#startLocationContainer > *,
+#destinationContainer > * {
+    display: block;
     width: 100%;
-  }
-  #directionsServiceContainer {
+}
+
+/* Buttons */
+#directionsForm button {
+    min-height: 40px;
+    margin: 4px 8px 8px 0;
+    padding: 0 16px;
+    border: 1px solid #17364b;
+    border-radius: 2px;
+    background: #17364b;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#directionsForm #clearDirectionsBtn {
+    background: #fff;
+    color: #334b5b;
+    border-color: #9eacb5;
+}
+
+#directionsForm button:hover {
+    background: #24536c;
+    color: #fff;
+}
+
+#directionsForm button:focus-visible {
+    outline: 3px solid #78b9c5;
+    outline-offset: 2px;
+}
+
+/* Route results area */
+#directionsPanel {
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1px solid #e1e7eb;
+    color: #334b5b;
+    line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+
+    #mapViewContainer {
+        min-height: 420px;
+    }
+
+    #mapViewContainer, #directionsServiceContainer {
+    width: 100%;
+    }
+
+    #directionsServiceContainer {
+    min-width: 0;
     height: 600px;
-  }
-  #homeMainContents {
+    }
+
+    #homeMainContents {
     flex-direction: column;
-  }
+    padding: 16px;
+    }
 }
