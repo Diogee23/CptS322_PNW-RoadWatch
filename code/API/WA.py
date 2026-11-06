@@ -55,16 +55,18 @@ def process_wa_alert(alert):
 
     # Return only the requested fields
     return {
-        "ExternalId": str(alert["AlertID"]),
-        "EventCategory": alert["EventCategory"],
-        "HeadlineDescription": alert["HeadlineDescription"].strip(),
-        "Severity": alert["Priority"],
-        "Coordinates": {
+        "alertID": str(alert["AlertID"]),
+        "alertType": alert["EventCategory"],
+        "severity": alert["Priority"],
+        "description": alert["HeadlineDescription"].strip(),
+       
+        "location": {
             "Latitude": latitude,
             "Longitude": longitude
         },
-        "LastUpdatedTime": formatted_time,
-        "Source": "WA DOT",
+        
+        "sourceAgency": "WA DOT",
+        "lastUpdated": formatted_time,
     }
 
 

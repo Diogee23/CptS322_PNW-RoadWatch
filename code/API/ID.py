@@ -12,7 +12,7 @@ def get_severity(condition):
 
     severity_map = {
         "dry": "Low",
-        "wet": "Medium",
+        "wet": "Moderate",
         "icy patches": "High",
     }
 
@@ -82,13 +82,13 @@ def process_idaho_alert(alert):
         else None
     )
     return {
-        "ExternalId": str(alert.get("Id")),
-        "EventCategory": "Road Conditions",
-        "HeadlineDescription": headline,
-        "Severity": severity,
-        "Coordinates": coordinates,
-        "LastUpdatedTime": formatted_time,
-        "Source": "ID DOT",
+        "alertID": str(alert.get("Id")),
+        "alertType": "Road Conditions",
+        "severity": severity,
+        "description": headline,
+        "location": coordinates,
+        "sourceAgency": "ID DOT",
+        "lastUpdated": formatted_time,
     }
 
 def normalize_idaho_data():
