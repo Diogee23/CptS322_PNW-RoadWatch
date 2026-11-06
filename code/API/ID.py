@@ -11,9 +11,9 @@ def get_severity(condition):
     condition = (condition or "").strip().lower()
 
     severity_map = {
-        "dry": "Low",
-        "wet": "Moderate",
-        "icy patches": "High",
+        "dry": "low",
+        "wet": "moderate",
+        "icy patches": "high",
     }
 
     return severity_map.get(condition, "Unknown")

@@ -4,7 +4,11 @@ from datetime import datetime, timezone, timedelta
 import re
 
 load_dotenv() # load environment variables from .env file
-
+severity_map = {
+        "Low": "low",
+        "Medium": "moderate",
+        "High": "high",
+    }
 WA_KEY = os.getenv('WA_API_KEY')
 
 def convert_time(date):
@@ -57,7 +61,7 @@ def process_wa_alert(alert):
     return {
         "alertID": str(alert["AlertID"]),
         "alertType": alert["EventCategory"],
-        "severity": alert["Priority"],
+        "severity": severity_map[alert["Priority"]],
         "description": alert["HeadlineDescription"].strip(),
        
         "location": {

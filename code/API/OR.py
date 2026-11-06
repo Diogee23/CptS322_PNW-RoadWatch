@@ -76,7 +76,7 @@ def get_oregon_severity(description, incident_type, subtype):
         or "hazardous materials" in description
         or "landslide" in description
     ):
-        return "High"
+        return "high"
 
     # Incidents explicitly described as minor or causing
     # minimal traffic impact
@@ -85,7 +85,7 @@ def get_oregon_severity(description, incident_type, subtype):
         or "minimal impact" in description
         or "minor" in subtype
     ):
-        return "Low"
+        return "low"
 
     # Do not assume an unrecognized incident is low severity
     return "Unknown"
