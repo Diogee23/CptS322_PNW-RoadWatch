@@ -6,6 +6,7 @@ import re
 load_dotenv() # load environment variables from .env file
 severity_map = {
         "Low": "low",
+        "Lowest": "low",
         "Medium": "moderate",
         "High": "high",
     }
