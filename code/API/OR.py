@@ -161,13 +161,13 @@ def process_oregon_alert(alert):
     )
 
     return {
-        "ExternalId": str(alert.get("id")),
-        "EventCategory": event_category,
-        "HeadlineDescription": headline,
-        "Severity": severity,
-        "Coordinates": coordinates,
-        "LastUpdatedTime": formatted_time,
-        "Source": "OR DOT",
+        "alertID": str(alert.get("id")),
+        "alertType": event_category,
+        "description": headline,
+        "severity": severity,
+        "location": coordinates,
+        "sourceAgency": "OR DOT",
+        "lastUpdated": formatted_time,
     }
 
 
