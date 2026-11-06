@@ -15,6 +15,7 @@
 .sev-moderate { background: #f9a825; color: #222; }
 .sev-high { background: #ef6c00; color: #fff; }
 .sev-critical { background: #c62828; color: #fff; }
+.sev-unknown { background: #fff; color: #222; border-color: #888; }
 
 .map-banner { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000;
   padding: 8px 14px; border-radius: 6px; font: 14px system-ui, sans-serif;

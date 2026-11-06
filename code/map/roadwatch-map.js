@@ -12,7 +12,13 @@
   const MAX_ZOOM = 18;
   const STATES_URL = "code/map/us-states.json";   // relative to index.html
   const CACHE_KEY = "pnw-roadwatch:alerts";
-  const GLYPH = { low: "i", moderate: "!", high: "!!", critical: "\u26D4" };
+  const GLYPH = { low: "i", moderate: "!", high: "!!", critical: "\u26D4", unknown: "?" };
+  const SEVERITIES = ["low", "moderate", "high", "critical"];
+  // Normalize any backend severity (any capitalization, missing, or unexpected) to a known key
+  const sevKey = (s) => {
+    const k = String(s ?? "").trim().toLowerCase();
+    return SEVERITIES.includes(k) ? k : "unknown";
+  };
   const GEO_OPTIONS = { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 };
   const LOCATE_ZOOM = 12;
 
@@ -263,16 +269,17 @@
     showPins(alerts) {
       this.pinLayer.clearLayers();
       alerts.forEach((a) => {
+        const sev = sevKey(a.severity);
         const icon = L.divIcon({
           className: "",
-          html: `<div class="alert-pin sev-${escapeHtml(a.severity)}"><span>${GLYPH[a.severity] || "!"}</span></div>`,
+          html: `<div class="alert-pin sev-${sev}"><span>${GLYPH[sev]}</span></div>`,
           iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -28],
         });
         const popup = `<div class="alert-popup">
           <h3>${escapeHtml(a.alertType)}</h3>
           <p>${escapeHtml(a.description)}</p>
           <dl>
-            <dt>Severity</dt><dd>${escapeHtml(a.severity)}</dd>
+            <dt>Severity</dt><dd>${sev === "unknown" ? "Unknown" : escapeHtml(a.severity)}</dd>
             <dt>Location</dt><dd>${a.location.latitude.toFixed(4)}, ${a.location.longitude.toFixed(4)}</dd>
             <dt>Updated</dt><dd>${escapeHtml(fmt(a.lastUpdated))}</dd>
             <dt>Source</dt><dd>${escapeHtml(a.sourceAgency)}</dd>
@@ -343,7 +350,7 @@
       if (typeof L === "undefined") throw new Error("Leaflet did not load.");
       window.roadwatchMap = new MapView("mapViewContainer", {
        useMock: false,
-       apiUrl: "https://cpts322-pnw-roadwatch-866b.onrender.com/api/alerts",
+       apiUrl: "https://cpts322-pnw-roadwatch.onrender.com/api/alerts",
       });
     } catch (e) {
       console.error("Could not initialize the map:", e);
