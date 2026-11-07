@@ -1,7 +1,7 @@
 # Sprint 2 Report
 
 **Team/Project Name:** Team 3 PNW RoadWatch  
-**Sprint Dates:** Sprint 2 - October 13 to November 5
+**Sprint Dates:** Sprint 2 - October 13 to November 5  
 **Demo Video Link:** https://youtu.be/JJt2sawljGE
 
 ## 1. Work Completed
