@@ -16,7 +16,6 @@ from concurrent.futures import ThreadPoolExecutor
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
 load_dotenv()  # load .env before reading any settings below
 
 from WA import normalize_wa_data
@@ -30,9 +29,7 @@ app = Flask(__name__)
 FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "*")
 CORS(
     app,
-    resources={r"/api/*": {"origins": FRONTEND_ORIGIN}},
-    expose_headers=["X-Failed-Sources"],
-)
+    origins=["https://diogee23.github.io"])
 
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", "60"))
 

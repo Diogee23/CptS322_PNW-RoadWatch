@@ -4,7 +4,12 @@ from datetime import datetime, timezone, timedelta
 import re
 
 load_dotenv() # load environment variables from .env file
-
+severity_map = {
+        "Low": "low",
+        "Lowest": "low",
+        "Medium": "moderate",
+        "High": "high",
+    }
 WA_KEY = os.getenv('WA_API_KEY')
 
 def convert_time(date):
@@ -61,8 +66,8 @@ def process_wa_alert(alert):
         "description": alert["HeadlineDescription"].strip(),
        
         "location": {
-            "Latitude": latitude,
-            "Longitude": longitude
+            "latitude": latitude,
+            "longitude": longitude
         },
         
         "sourceAgency": "WA DOT",

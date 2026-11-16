@@ -76,7 +76,7 @@ def get_oregon_severity(description, incident_type, subtype):
         or "hazardous materials" in description
         or "landslide" in description
     ):
-        return "High"
+        return "high"
 
     # Incidents explicitly described as minor or causing
     # minimal traffic impact
@@ -85,7 +85,7 @@ def get_oregon_severity(description, incident_type, subtype):
         or "minimal impact" in description
         or "minor" in subtype
     ):
-        return "Low"
+        return "low"
 
     # Do not assume an unrecognized incident is low severity
     return "Unknown"
@@ -133,8 +133,8 @@ def process_oregon_alert(alert):
             last_lat, last_lon = points[-1]
 
             coordinates = {
-                "Latitude": (first_lat + last_lat) / 2,
-                "Longitude": (first_lon + last_lon) / 2,
+                "latitude": (first_lat + last_lat) / 2,
+                "longitude": (first_lon + last_lon) / 2,
             }
 
         except ValueError:

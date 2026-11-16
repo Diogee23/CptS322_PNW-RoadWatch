@@ -11,9 +11,9 @@ def get_severity(condition):
     condition = (condition or "").strip().lower()
 
     severity_map = {
-        "dry": "Low",
-        "wet": "Moderate",
-        "icy patches": "High",
+        "dry": "low",
+        "wet": "moderate",
+        "icy patches": "high",
     }
 
     return severity_map.get(condition, "Unknown")
@@ -58,8 +58,8 @@ def process_idaho_alert(alert):
 
     if points:
         coordinates = {
-            "Latitude": sum(lat for lat, lon in points) / len(points),
-            "Longitude": sum(lon for lat, lon in points) / len(points),
+            "latitude": sum(lat for lat, lon in points) / len(points),
+            "longitude": sum(lon for lat, lon in points) / len(points),
         }
 
     # Extract road condition and map severity
