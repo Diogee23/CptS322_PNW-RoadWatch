@@ -1,26 +1,25 @@
-# Use Python 3.13.14
-FROM python:3.13.14-slim
+FROM python:3.12-slim
 
-# Set the working directory inside the container
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Prevent Python from creating unnecessary cache files
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Copy and install backend dependencies
-COPY code/api/requirements.txt .
-
+# Install dependencies first so this layer is cached when only code changes
+COPY code/API/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy backend application and state-specific modules
-COPY code/api/*.py .
+# Backend code only (the front end is a separate image / GitHub Pages)
+COPY code/API/app.py code/API/WA.py code/API/OR.py code/API/ID.py ./
 
-# Default port (Railway or Render can override this)
-ENV PORT=8000
+# Run as a non-root user
+RUN useradd --create-home appuser
+USER appuser
 
-# Document the application port
-EXPOSE 8000
+EXPOSE 5000
 
-# Start Flask using Gunicorn
-CMD ["sh", "-c", "exec gunicorn app:app --bind 0.0.0.0:${PORT:-8000} --workers 1 --threads 4 --timeout 60"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/api/health', timeout=3)"
+
+# Bind to 0.0.0.0 so the port is reachable from outside the container
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "60", "app:app"]

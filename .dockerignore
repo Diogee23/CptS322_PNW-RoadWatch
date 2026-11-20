@@ -5,6 +5,8 @@
 
 # Python cache files
 __pycache__/
+**/__pycache__/
+*.pyc
 *.py[cod]
 *.pyo
 
@@ -16,6 +18,7 @@ env/
 # Git files
 .git/
 .gitignore
+.github
 
 # Editor files
 .vscode/
@@ -32,3 +35,7 @@ htmlcov/
 
 # Node dependencies, if present
 node_modules/
+
+# Folders
+docs/
+tests/
